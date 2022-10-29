@@ -1,0 +1,30 @@
+{"intents": [
+  {"tags": "greetings",
+  "patterns": ["hello", "hey", "hi", "good day", "Greetings", "what's up?", "how's it going"],
+  "response": ["Hello!", "Hey!", "Hi, how may I assist you?"]
+  },
+  {"tags": "goodbye",
+  "patterns": ["bye", "See you later", "Goodbye", "ciao", "tschuss", "cya", "see ya"],
+  "response": ["Goodbye!", "Have a nice day!", "Talk to you later!"]
+  },
+  {"tags": "name",
+  "patterns": ["what is your name?", "what should I call you?", "your name?", "who are you?", "name?"],
+  "response": ["You can call me B.", "I'm B", "I'm B!", "the assistant of Ryan!"]
+  },
+  {"tags": "age",
+  "patterns": ["how old are you?", "how old?", "age?", "what's your age?"],
+  "response": ["Oh about that...I'm Immortal."]
+  },
+  {"tags": "shop",
+  "patterns": ["what are you products?", "what do you sell?", "what do you recommend?", "what can I buy here"],
+  "response": ["We sell coffee beans, our popular products are Tanzania Peaberry Coffee, Hawaii Kona Coffee and Nicaraguan Coffee"]
+  },
+  {"tags": "hours",
+  "patterns": ["when are you guys open", "what are your hours", "hours of operation?", "what are your opening hours?"],
+  "response": ["We are open 24/7"]
+  },
+  {"tags": "stocks",
+  "patterns": ["what stocks do I own?", "how are my shares?", "what companies am I investing in?"],
+  "response": ["You own the following shares: TSLA, FB, MSFT and GOOGL"]
+  }
+]}

@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d55fde; font-style: italic;}
+.s1 { color: #bbbbbb;}
+.s2 { color: #d19a66;}
+.s3 { color: #5c6370; font-style: italic;}
+.s4 { color: #89ca78;}
+.s5 { color: #2bbac5;}
+</style>
+</head>
+<body bgcolor="#282c34">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">re</span>
+<span class="s0">import </span><span class="s1">long_responses </span><span class="s0">as </span><span class="s1">long</span>
+
+
+<span class="s0">def </span><span class="s1">message_probability(user_message, recognised_words, single_response=</span><span class="s0">False</span><span class="s1">, required_words=[]):</span>
+    <span class="s1">message_certainty = </span><span class="s2">0</span>
+    <span class="s1">has_required_words = </span><span class="s0">True</span>
+
+    <span class="s3"># Counts how many words are present in each predefined message</span>
+    <span class="s0">for </span><span class="s1">word </span><span class="s0">in </span><span class="s1">user_message:</span>
+        <span class="s0">if </span><span class="s1">word </span><span class="s0">in </span><span class="s1">recognised_words:</span>
+            <span class="s1">message_certainty += </span><span class="s2">1</span>
+
+    <span class="s3"># Calculates the percent of recognised words in a user message</span>
+    <span class="s1">percentage = float(message_certainty) / float(len(recognised_words))</span>
+
+    <span class="s3"># Checks that the required words are in the string</span>
+    <span class="s0">for </span><span class="s1">word </span><span class="s0">in </span><span class="s1">required_words:</span>
+        <span class="s0">if </span><span class="s1">word </span><span class="s0">not in </span><span class="s1">user_message:</span>
+            <span class="s1">has_required_words = </span><span class="s0">False</span>
+            <span class="s0">break</span>
+
+    <span class="s0">if </span><span class="s1">has_required_words </span><span class="s0">or </span><span class="s1">single_response:</span>
+        <span class="s0">return </span><span class="s1">int(percentage*</span><span class="s2">100</span><span class="s1">)</span>
+    <span class="s0">else</span><span class="s1">:</span>
+        <span class="s0">return </span><span class="s2">0</span>
+
+<span class="s0">def </span><span class="s1">check_all_messages(message):</span>
+    <span class="s1">highest_prob_list = {}</span>
+
+    <span class="s0">def </span><span class="s1">response(bot_response, list_of_words, single_response=</span><span class="s0">False</span><span class="s1">, required_words=[]):</span>
+        <span class="s0">nonlocal </span><span class="s1">highest_prob_list</span>
+        <span class="s1">highest_prob_list[bot_response] = message_probability(message, list_of_words, single_response, required_words)</span>
+
+    <span class="s3"># Response -------------------------------------------------------------------------------------------------------</span>
+    <span class="s1">response(</span><span class="s4">'Hello!'</span><span class="s1">, [</span><span class="s4">'hello'</span><span class="s1">, </span><span class="s4">'hi'</span><span class="s1">, </span><span class="s4">'sup'</span><span class="s1">, </span><span class="s4">'hey'</span><span class="s1">, </span><span class="s4">'nihao'</span><span class="s1">, </span><span class="s4">'hellow'</span><span class="s1">, </span><span class="s4">'hallo'</span><span class="s1">, </span><span class="s4">'bello'</span><span class="s1">], single_response=</span><span class="s0">True</span><span class="s1">)</span>
+    <span class="s1">response(</span><span class="s4">'I</span><span class="s5">\'</span><span class="s4">m doing fine, and you?'</span><span class="s1">, [</span><span class="s4">'how'</span><span class="s1">, </span><span class="s4">'are'</span><span class="s1">, </span><span class="s4">'you'</span><span class="s1">, </span><span class="s4">'doing'</span><span class="s1">, </span><span class="s4">'okay'</span><span class="s1">], required_words=[</span><span class="s4">'how'</span><span class="s1">])</span>
+    <span class="s1">response(</span><span class="s4">'Thank you!'</span><span class="s1">, [</span><span class="s4">'i'</span><span class="s1">, </span><span class="s4">'love'</span><span class="s1">, </span><span class="s4">'you'</span><span class="s1">, </span><span class="s4">'chatbot01'</span><span class="s1">], required_words=[</span><span class="s4">'love'</span><span class="s1">])</span>
+    <span class="s1">response(long.R_EATING, [</span><span class="s4">'what'</span><span class="s1">, </span><span class="s4">'do'</span><span class="s1">, </span><span class="s4">'you'</span><span class="s1">, </span><span class="s4">'like'</span><span class="s1">, </span><span class="s4">'to'</span><span class="s1">, </span><span class="s4">'eat'</span><span class="s1">], required_words=[</span><span class="s4">'you'</span><span class="s1">, </span><span class="s4">'eat'</span><span class="s1">])</span>
+
+    <span class="s1">best_match = max(highest_prob_list, key=highest_prob_list.get)</span>
+    <span class="s3"># print(highest_prob_list)</span>
+    <span class="s0">return </span><span class="s1">long.unknown() </span><span class="s0">if </span><span class="s1">highest_prob_list[best_match] &lt; </span><span class="s2">1 </span><span class="s0">else </span><span class="s1">best_match</span>
+
+<span class="s0">def </span><span class="s1">get_response(user_input):</span>
+    <span class="s1">split_message = re.split(</span><span class="s4">r'\s+|[,;?!.-]\s*'</span><span class="s1">, user_input.lower())</span>
+    <span class="s1">response = check_all_messages(split_message)</span>
+    <span class="s0">return </span><span class="s1">response</span>
+
+<span class="s3">#Testing the response system</span>
+<span class="s0">while True</span><span class="s1">:</span>
+    <span class="s1">print(</span><span class="s4">'Bot: ' </span><span class="s1">+ get_response(input(</span><span class="s4">'You: '</span><span class="s1">)))</span>
+</pre>
+</body>
+</html>
